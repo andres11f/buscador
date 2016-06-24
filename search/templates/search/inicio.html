@@ -1,0 +1,89 @@
+{%extends "search/base.html"%}
+
+{% block titulo %}Buscador{% endblock %}
+{% block contenido %}
+	<div class="container">
+		<form class="form-horizontal" role="form" method="POST" action="/googleCS/" name="buscar">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-5">
+					<div class="form-group">
+						<label class="control-label col-md-4" for="cat">Categoria:</label>
+						<div class="col-md-8">
+							<select class="form-control" name="categoria" id="cat">
+								{% for c in categorias%}
+									<option>{{c}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-5">
+					<div class="form-group">
+						<label class="control-label col-md-4" for="pat">Patron:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="patron" required="True" id="pat">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-2">
+					<div class="form-group">
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-5">
+					<div class="form-group">
+						<label class="control-label col-md-4" for="urlsem">URL Semilla:</label>
+						<div class="col-md-8">
+							<input type="url" placeholder="ejemplo: https://utp.edu.co" class="form-control" name="semilla" id="urlsem">
+						</div>
+					</div>
+  				</div>
+  				<div class="col-md-5">
+  					<div class="form-group">
+						<label class="control-label col-md-4" for="country">Pais:</label>
+						<div class="col-md-8">
+							<select class="form-control" name="pais" id="country">
+								{% for p in paises%}
+									{% if p == 'Colombia'%}
+										<option selected>{{p}}</option>
+									{% else %}
+										<option>{{p}}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4" for="city">Ciudad:</label>
+						<div class="col-md-8">
+							<select class="form-control" name="ciudad" id="city">
+								{% for c in ciudades%}
+									<option>{{c}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+  				</div>
+			</div>
+		</form>
+		{% if busquedaExitosa %}
+			<p class="bg-success">Busqueda realizada.</p>
+			<div class="container">
+			<h2>Resultados</h2>
+				<div class="list-group">
+				{% for r in resultados%}
+					<a href="{{r}}" target="_blank" class="list-group-item">{{r}}</a>
+				{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

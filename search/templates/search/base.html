@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+
+</html lang="es">
+
+<html>
+	<head>
+		<title> {% block titulo %} Inicio {% endblock %} </title>
+		{%block css%}
+		<link rel="stylesheet" type="text/css" href="/media/css/estilos.css"/>
+		{% endblock%}
+		{% block bootstrap %}
+			<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		{% endblock %}
+
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+		<script type="text/javascript">
+			google.load("search", "1");
+		</script>
+		
+	</head>
+	<center><h1> Buscador </h1></center><br>	
+	<body>
+		{% block contenido %}
+		{% endblock %}
+		{% block footer %}
+		{% endblock %}
+	</body>
+</html>
