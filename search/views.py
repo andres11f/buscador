@@ -12,16 +12,18 @@ from apiclient.discovery import build
 from .models import Patron, Enlace, Contenido, Categoria, CategoriaEnlace
 from django.core.files.base import ContentFile
 from requests.auth import HTTPBasicAuth
+from django.template.defaulttags import register
 
 # Bing API key
 API_KEY = "af0EhUPMQ5EtWH2zO6y615x0FSBV0dnNyYVDSCW9x+U"
 
 def buscar(request):
-	categorias = ordenarCategorias(Categoria.objects.all())
+	categoriasOrdenadas = ordenarCategorias(Categoria.objects.all())
 
 	resultados = list()
-
 	paises = list()
+	patrones = {'item1', 'item2', 'item3'}
+
 	for c in pycountry.countries:
 		paises.append(c.name)
 
@@ -52,6 +54,26 @@ def buscar(request):
 		busquedaExitosa = True
 
 	return render(request, 'search/inicio.html', locals())
+
+def mostrarCategorias(request):
+	categoriasAMostrar = categoriasMostrar()
+
+	return render(request, 'search/categorias.html', locals())
+
+def categoriasMostrar():
+	categorias = CategoriaEnlace.objects.all()
+	categoriasAMostrar = dict()
+
+	categoriasMostrar = list()
+
+	for c in categorias:
+		if c.categoria.nombre not in categoriasAMostrar.keys():
+			categoriasAMostrar[c.categoria.nombre] = list()
+
+	for c in categorias:
+		categoriasAMostrar[c.categoria.nombre].append(c.enlace.enlace)
+	return categoriasAMostrar
+
 
 def ordenarCategorias(categorias):
 	categoriasOrdenadas = list()
@@ -120,7 +142,7 @@ def guardarEnlaces(resultados, patron, nombreCategoria):
 		cateEnlace = CategoriaEnlace(enlace = enlace, categoria = categoria)
 		cateEnlace.save()
 
-		guardarContenido(link, patron, enlace)
+		#guardarContenido(link, patron, enlace)
 
 
 def guardarContenido(link, patron, enlace):
@@ -133,3 +155,7 @@ def guardarContenido(link, patron, enlace):
 	contenido = Contenido(patron = patron, enlace = enlace)
 	contenido.contenidoHoy.save(link.replace('http://','').replace('https://','').replace('/', '-'), ContentFile(webContent))
 	contenido.save()
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

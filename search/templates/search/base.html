@@ -19,6 +19,40 @@
 		<script type="text/javascript">
 			google.load("search", "1");
 		</script>
+
+		<script>
+		function mostrarOtroPatron() {
+    		var foo2 = document.getElementById("patron2");
+    		var foo3 = document.getElementById("patron3");
+    		var foo4 = document.getElementById("patron4");
+    		var foo5 = document.getElementById("patron5");
+
+    		console.log("done");
+
+    		if (foo2.style.display == 'none'){
+    			foo2.style.display = 'block';
+    			return;
+    		}
+
+    		if (foo2.style.display == 'block' && foo3.style.display == 'none')
+			{
+				foo3.style.display = 'block';
+				return;
+			}
+
+			if (foo3.style.display == 'block' && foo4.style.display == 'none')
+			{
+				foo4.style.display = 'block';
+				return;
+			}
+
+			if (foo4.style.display == 'block')
+			{
+				foo5.style.display = 'block';
+				return;
+			}
+		}
+		</script>
 		
 	</head>
 	<center><h1> Buscador </h1></center><br>	

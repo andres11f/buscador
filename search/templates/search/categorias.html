@@ -1,0 +1,21 @@
+{%extends "search/base.html"%}
+
+{% block titulo %}Buscador{% endblock %}
+{% block contenido %}
+	<div class="container">
+
+		{% for c in categoriasAMostrar %}
+			<div class="panel panel-primary">
+  				<div class="panel-heading">{{c}}</div>
+  				<div class="panel-body">
+  					<ul class="list-group">
+	  					{% for l in categoriasAMostrar|get_item:c %}
+	  					<a href="{{l}}" target="_blank" class="list-group-item">{{l}}</a>
+	  					{% endfor %}
+					</ul>
+  				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+{% endblock %}

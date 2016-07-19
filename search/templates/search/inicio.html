@@ -2,6 +2,12 @@
 
 {% block titulo %}Buscador{% endblock %}
 {% block contenido %}
+	<script type="text/javascript"> 
+		function myFunction() {
+			var a = {{patrones}};
+			console.log(a);
+		}
+	</script>
 	<div class="container">
 		<form class="form-horizontal" role="form" method="POST" action="/search/" name="buscar">
 			{% csrf_token %}
@@ -10,8 +16,8 @@
 					<div class="form-group">
 						<label class="control-label col-md-4" for="cat">Categoria:</label>
 						<div class="col-md-8">
-							<select multiple class="form-control" name="categoria" id="cat">
-								{% for c in categorias%}
+							<select class="form-control" name="categoria" id="cat" onchange="myFunction()">
+								{% for c in categoriasOrdenadas%}
 									<option>{{c}}</option>
 								{% endfor %}
 							</select>
@@ -20,12 +26,46 @@
 				</div>
 
 				<div class="col-md-5">
+
 					<div class="form-group">
 						<label class="control-label col-md-4" for="pat">Patron:</label>
-						<div class="col-md-8">
+						<div class="input-group col-md-8">
 							<input type="text" class="form-control" name="patron" required="True" id="pat">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary" onclick="mostrarOtroPatron()">
+      								<span class="glyphicon glyphicon-plus"></span>
+    							</button>
+							</span>
 						</div>
 					</div>
+					
+					<div class="form-group" id="patron2" style="display:none">
+						<label class="control-label col-md-4" for="pat2">Patron:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="patron" required="True" id="pat2">
+						</div>
+					</div>
+					<div class="form-group" id="patron3" style="display:none">
+						<label class="control-label col-md-4" for="pat3">Patron:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="patron" required="True" id="pat3">
+						</div>
+					</div>
+					<div class="form-group" id="patron4" style="display:none">
+						<label class="control-label col-md-4" for="pat4">Patron:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="patron" required="True" id="pat4">
+						</div>
+					</div>
+					<div class="form-group" id="patron5" style="display:none">
+						<label class="control-label col-md-4" for="pat5">Patron:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="patron" required="True" id="pat5">
+						</div>
+					</div>
+				</div>
+
+				<div>
 				</div>
 
 				<div class="col-md-2">
@@ -46,7 +86,10 @@
 						</div>
 					</div>
   				</div>
-  				<div class="col-md-5">
+			</div>
+
+			<div class="row">
+				<div class="col-md-5">
   					<div class="form-group">
 						<label class="control-label col-md-4" for="country">Pais:</label>
 						<div class="col-md-8">
@@ -64,6 +107,9 @@
   				</div>
 			</div>
 		</form>
+
+		
+
 		{% if busquedaExitosa %}
 			<p class="bg-success">Busqueda realizada.</p>
 			<div class="container">
@@ -75,5 +121,22 @@
 				</div>
 			</div>
 		{% endif %}
+
+		{% for c in categoriasAMostrar %}
+			<div class="panel panel-primary">
+  				<div class="panel-heading">{{c}}</div>
+  				<div class="panel-body">
+  					<ul class="list-group">
+	  					{% for l in categoriasAMostrar|get_item:c %}
+	  					<li class="list-group-item">{{l}}</li>
+	  					{% endfor %}
+					</ul>
+  				</div>
+			</div>
+		{% endfor %}
+
+		
+
+
 	</div>
 {% endblock %}
