@@ -22,15 +22,24 @@ def buscar(request):
 
 	resultados = list()
 	paises = list()
-	patrones = {'item1', 'item2', 'item3'}
+	patrones = list()
 
 	for c in pycountry.countries:
 		paises.append(c.name)
 
 	if request.method == 'POST':
 		categoria = request.POST['categoria']
-		patron = request.POST['patron']
-		
+		patron = request.POST['patron1']
+		patrones.append(request.POST['patron1'])
+
+		if request.POST['patron2']: patrones.append(request.POST['patron2'])
+		if request.POST['patron3']: patrones.append(request.POST['patron3'])
+		if request.POST['patron4']: patrones.append(request.POST['patron4'])
+		if request.POST['patron5']: patrones.append(request.POST['patron5'])
+
+		print("-------------------------------------------")
+		print(patrones)
+
 		pais = ''
 		semilla = ''
 
