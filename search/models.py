@@ -1,5 +1,6 @@
+from __future__ import unicode_literals
+
 from django.db import models
-from urllib.request import urlopen
 
 class Patron(models.Model):
 	id = models.AutoField(primary_key=True)
@@ -26,18 +27,16 @@ class Enlace(models.Model):
 	def __str__(self):
 		return self.enlace
 
-class Contenido(models.Model):
+'''class Contenido(models.Model):
 	id = models.AutoField(primary_key=True)
 	patron = models.ForeignKey(Patron)
 	enlace = models.ForeignKey(Enlace)
 
 	def url(self, filename):
-		if len(filename) > 80:
-			filename = filename[:80]
-		return "%s/%s/%s"%(self.patron.categoria, self.patron.id, filename)
+		return 
 
-	contenidoAyer = models.FileField(upload_to=url, max_length=200)
-	contenidoHoy = models.FileField(upload_to=url, max_length=200)
+	contenidoAyer = models.FileField(upload_to="%s/%s/%s"%(patron.categoria, patron.id, filename), max_length=200)
+	contenidoHoy = models.FileField(upload_to="%s/%s/%s"%(patron.categoria, patron.id, filename), max_length=200)'''
 
 class Categoria(models.Model):
 	id = models.AutoField(primary_key=True)

@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'buscador.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.oracle',
         'NAME': 'buscador',
-        'USER': 'root',
+        'USER': 'SYSTEM',
         'PASSWORD': 'password',
-        'PORT' : '5432'
+        'PORT' : '1521'
     }
 }
 

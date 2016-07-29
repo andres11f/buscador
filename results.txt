@@ -1,10 +1,10 @@
 http://www.transitobogota.gov.co/
+http://www.movilidadbogota.gov.co/?sec=4
+http://www.transitobogota.gov.co/?sec=30
 http://www.bogota.gov.co/tag/tr%C3%A1nsito
-http://www.transitobogota.gov.co/?sec=4
-http://www.runt.com.co/portel/libreria/php/02..html
-http://oasportal.policia.gov.co/portal/page/portal/Direccion_Transito_transportes/Direccion_de_transito_y_transportes
-http://www.mintransporte.gov.co/
-http://www.movilidadbogota.gov.co/?sec=32
+https://consulta.simit.org.co/
+https://www.mintransporte.gov.co/
+https://www.mintransporte.gov.co/Publicaciones/direccin_de_trnsito_y_transporte_bogot_dc_19_de_agosto_de_2012_0600_horas
+http://www.movilidadbogota.gov.co/?sec=462
 https://www.runt.com.co/portel/libreria/php/01.0305.html
-https://www.mintransporte.gov.co/publicaciones.php?id=222
-https://consulta.simit.org.co/Simit/index.html
+http://www.runt.com.co/portel/libreria/php/decide.php?patron=02.

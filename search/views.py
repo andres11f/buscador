@@ -3,13 +3,11 @@ import json
 import pycountry
 import urllib
 import requests
-import urllib.parse
 import json
-from urllib.request import urlopen
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
-from apiclient.discovery import build
-from .models import Patron, Enlace, Contenido, Categoria, CategoriaEnlace
+#from apiclient.discovery import build
+from .models import Patron, Enlace, Categoria, CategoriaEnlace
 from django.core.files.base import ContentFile
 from requests.auth import HTTPBasicAuth
 from django.template.defaulttags import register
@@ -32,10 +30,10 @@ def buscar(request):
 		patron = request.POST['patron1']
 		patrones.append(request.POST['patron1'])
 
-		if request.POST['patron2']: patrones.append(request.POST['patron2'])
-		if request.POST['patron3']: patrones.append(request.POST['patron3'])
-		if request.POST['patron4']: patrones.append(request.POST['patron4'])
-		if request.POST['patron5']: patrones.append(request.POST['patron5'])
+		#if request.POST['patron2']: patrones.append(request.POST['patron2'])
+		#if request.POST['patron3']: patrones.append(request.POST['patron3'])
+		#if request.POST['patron4']: patrones.append(request.POST['patron4'])
+		#if request.POST['patron5']: patrones.append(request.POST['patron5'])
 
 		print("-------------------------------------------")
 		print(patrones)
@@ -112,7 +110,7 @@ def obtenerResultados(query):
 	resultados = list()
 
 	# set search url
-	query = '%27' + urllib.parse.quote(query) + '%27'
+	query = '%27' + urllib.quote(query) + '%27'
 	# web result only base url
 	base_url = 'https://api.datamarket.azure.com/Bing/Search/v1/' + source_type
 	url = base_url + '?Query=' + query + '&$top=' + str(top) + '&$format=' + format
