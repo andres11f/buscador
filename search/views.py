@@ -27,16 +27,12 @@ def buscar(request):
 
 	if request.method == 'POST':
 		categoria = request.POST['categoria']
-		patron = request.POST['patron1']
-		patrones.append(request.POST['patron1'])
 
-		#if request.POST['patron2']: patrones.append(request.POST['patron2'])
-		#if request.POST['patron3']: patrones.append(request.POST['patron3'])
-		#if request.POST['patron4']: patrones.append(request.POST['patron4'])
-		#if request.POST['patron5']: patrones.append(request.POST['patron5'])
-
-		print("-------------------------------------------")
-		print(patrones)
+		patrones.append(request.POST.get('patron1', ''))
+		patrones.append(request.POST.get('patron2', ''))
+		patrones.append(request.POST.get('patron3', ''))
+		patrones.append(request.POST.get('patron4', ''))
+		patrones.append(request.POST.get('patron5', ''))
 
 		pais = ''
 		semilla = ''
@@ -46,17 +42,22 @@ def buscar(request):
 		
 		if '----' in categoria: categoria = categoria.strip('-')
 
-		if semilla:
-			query = 'site:' + semilla + ' ' + categoria + ' ' + patron
-			resultados = obtenerResultados(query=query)
-		else:
-			codPais = pycountry.countries.get(name=pais).alpha2
-			query = 'location:' + codPais + ' ' + categoria + ' ' + patron
-			resultados = obtenerResultados(query=query)
+		print(patrones)
+		for p in patrones:
+			if p:
+				print("----------------------")
+				print(p)
+				if semilla:
+					query = 'site:' + semilla + ' ' + categoria + ' ' + p
+					resultados = obtenerResultados(query=query)
+				else:
+					codPais = pycountry.countries.get(name=pais).alpha2
+					query = 'location:' + codPais + ' ' + categoria + ' ' + p
+					resultados = obtenerResultados(query=query)
 
-		patronAGuardar = Patron(categoria = categoria, semilla = semilla, pais = pais, patron = patron)
-		patronAGuardar.save()
-		guardarEnlaces(resultados, patronAGuardar, categoria)
+				patronAGuardar = Patron(categoria = categoria, semilla = semilla, pais = pais, patron = p)
+				patronAGuardar.save()
+				guardarEnlaces(resultados, patronAGuardar, categoria)
 
 		busquedaExitosa = True
 

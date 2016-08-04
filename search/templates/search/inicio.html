@@ -3,11 +3,49 @@
 {% block titulo %}Buscador{% endblock %}
 {% block contenido %}
 	<script type="text/javascript"> 
-		function myFunction() {
-			var a = {{patrones}};
-			console.log(a);
-		}
+		/*function addFields(){
+			var container = document.getElementById("inputs");
+			var div = document.createElement("div");
+			div.innerHTML = "<label class="control-label col-md-4">Patron:</label>";
+			//div.innerHTML = "<label class="control-label col-md-4" >Patron:</label>"
+			container.appendChild(div);
+		}*/
+		/*$(function() { 
+    		$(document).on('click', '.btn-add', function(e) { 
+    			e.preventDefault();  
+    			var controlForm = $('.controls form:first'), currentEntry = $(this).parents('.entry:first'), newEntry = $(currentEntry.clone()).appendTo(controlForm); 
+    			newEntry.find('input').val(''); 
+    			controlForm.find('.entry:not(:last) .btn-add') .removeClass('btn-add').addClass('btn-remove') .removeClass('btn-success').addClass('btn-danger') .html('<span class="glyphicon glyphicon-minus"></span>');
+    			}
+    		).on('click', '.btn-remove', function(e) { 
+    			$(this).parents('.entry:first').remove();
+    			e.preventDefault(); 
+    			return false;
+    			});
+			}
+		);*/
+
+		$(function() { 
+    		$(document).on('click', '.btn-add', function(e) { 
+    			e.preventDefault();
+    			var n = $('#inputs .entry').length;
+    			if (n < 5){
+    				var entry = $('#inputs'), currentEntry = $(this).parents('.entry:first')
+    				var newEntry = $(currentEntry.clone()).appendTo(entry);
+    				newEntry.find('input').val('');
+    				newEntry.find('input').attr('name', 'patron' + (n+1));
+    				entry.find('.entry:not(:last) .btn-add').removeClass('btn-add').addClass('btn-remove').removeClass('btn-success').addClass('btn-danger').html('<span class="glyphicon glyphicon-minus"></span>');
+    				}
+    			}
+    		).on('click', '.btn-remove', function(e) { 
+    			$(this).parents('.entry:first').remove();
+    			e.preventDefault(); 
+    			return false;
+    			});
+    	}
+		);
 	</script>
+
 	<div class="container">
 		<form class="form-horizontal" role="form" method="POST" action="/search/" name="buscar">
 			{% csrf_token %}
@@ -16,7 +54,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-4" for="cat">Categoria:</label>
 						<div class="col-md-8">
-							<select class="form-control" name="categoria" id="cat" onchange="myFunction()">
+							<select class="form-control" name="categoria" id="cat">
 								{% for c in categoriasOrdenadas%}
 									<option>{{c}}</option>
 								{% endfor %}
@@ -25,44 +63,18 @@
 					</div>
 				</div>
 
-				<div class="col-md-5">
-
-					<div class="form-group">
+				<div class="col-md-5" id="inputs">
+					<div class="entry form-group">
 						<label class="control-label col-md-4" for="pat1">Patron:</label>
 						<div class="input-group col-md-8">
 							<input type="text" class="form-control" name="patron1" required="True" id="pat1">
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" onclick="mostrarOtroPatron()">
+								<button type="button" class="btn btn-primary btn-add">
       								<span class="glyphicon glyphicon-plus"></span>
     							</button>
 							</span>
 						</div>
 					</div>
-					<!--
-					<div class="form-group" id="patron2">
-						<label class="control-label col-md-4" for="pat2" >Patron:</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" name="patron2" required="True" id="pat2">
-						</div>
-					</div>
-					<div class="form-group" id="patron3">
-						<label class="control-label col-md-4" for="pat3">Patron:</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" name="patron3" required="True" id="pat3">
-						</div>
-					</div>
-					<div class="form-group" id="patron4">
-						<label class="control-label col-md-4" for="pat4">Patron:</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" name="patron4" required="True" id="pat4">
-						</div>
-					</div>
-					<div class="form-group" id="patron5">
-						<label class="control-label col-md-4" for="pat5">Patron:</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" name="patron5" required="True" id="pat5">
-						</div>
-					</div>-->
 				</div>
 
 				<div class="col-md-2">
