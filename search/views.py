@@ -21,6 +21,7 @@ def buscar(request):
 	resultados = list()
 	paises = list()
 	patrones = list()
+	historialCategorias = generarHistorialCategorias()
 
 	for c in pycountry.countries:
 		paises.append(c.name)
@@ -42,11 +43,8 @@ def buscar(request):
 		
 		if '----' in categoria: categoria = categoria.strip('-')
 
-		print(patrones)
 		for p in patrones:
 			if p:
-				print("----------------------")
-				print(p)
 				if semilla:
 					query = 'site:' + semilla + ' ' + categoria + ' ' + p
 					resultados = obtenerResultados(query=query)
@@ -67,6 +65,17 @@ def mostrarCategorias(request):
 	categoriasAMostrar = categoriasMostrar()
 
 	return render(request, 'search/categorias.html', locals())
+
+def generarHistorialCategorias():
+	historial = dict()
+	for p in Patron.objects.all():
+		if p.categoria not in historial.keys():
+			historial[p.categoria] = list()
+			historial[p.categoria].append(p.patron)
+		else:
+			historial[p.categoria].append(p.patron)
+
+	return historial
 
 def categoriasMostrar():
 	categorias = CategoriaEnlace.objects.all()

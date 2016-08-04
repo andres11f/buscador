@@ -84,7 +84,36 @@
 						</div>
 					</div>
 				</div>
+			</div>	
+
+
+			<div class="row">
+				<div class="col-md-5">
+					<div class="panel-group">
+  					<div class="panel panel-default">
+   						<div class="panel-heading">
+							<h4 class="panel-title">
+        						<a data-toggle="collapse" href="#collapse1">Historial</a>
+      						</h4>
+    					</div>
+    					<div id="collapse1" class="panel-collapse collapse">
+      						<div class="panel-body">
+
+      							{% for c in historialCategorias %}
+      							<ul class="list-group">
+	  								<li class="list-group-item active">{{c}}</li>
+	  								{% for p in historialCategorias|get_item:c %}
+  									<li class="list-group-item">{{p}}</li>
+  									{% endfor %}
+								</ul>
+								{% endfor %}
+      						</div>
+    					</div>
+					</div>
+					</div>
+				</div>
 			</div>
+
 
 			<div class="row">
 				<div class="col-md-5">
@@ -117,8 +146,6 @@
 			</div>
 		</form>
 
-		
-
 		{% if busquedaExitosa %}
 			<p class="bg-success">Busqueda realizada.</p>
 			<div class="container">
@@ -130,22 +157,6 @@
 				</div>
 			</div>
 		{% endif %}
-
-		{% for c in categoriasAMostrar %}
-			<div class="panel panel-primary">
-  				<div class="panel-heading">{{c}}</div>
-  				<div class="panel-body">
-  					<ul class="list-group">
-	  					{% for l in categoriasAMostrar|get_item:c %}
-	  					<li class="list-group-item">{{l}}</li>
-	  					{% endfor %}
-					</ul>
-  				</div>
-			</div>
-		{% endfor %}
-
-		
-
 
 	</div>
 {% endblock %}

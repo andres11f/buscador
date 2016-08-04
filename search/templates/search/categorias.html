@@ -16,6 +16,48 @@
   				</div>
 			</div>
 		{% endfor %}
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label col-md-4" for="cat">Categoria:</label>
+						<div class="col-md-8">
+							<select class="form-control" name="categoria" id="cat">
+								{% for c in categoriasOrdenadas%}
+									<option>{{c}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
 
+				<div class="col-md-6">
+					<div class="panel-group">
+  					<div class="panel panel-default">
+   						<div class="panel-heading">
+							<h4 class="panel-title">
+        						<a data-toggle="collapse" href="#collapse1">historial</a>
+      						</h4>
+    					</div>
+    					<div id="collapse1" class="panel-collapse collapse">
+      						<div class="panel-body">
+
+      							{% for c in historial %}
+      							<ul class="list-group">
+	  								<li class="list-group-item active">{{c}}</li>
+	  								{% for p in historial|get_item:c %}
+  									<li class="list-group-item">{{p}}</li>
+  									{% endfor %}
+								</ul>
+								{% endfor %}
+      						</div>
+    					</div>
+					</div>
+					</div>
+				</div>
+
+					
+
+				
+			</div>
 	</div>
 {% endblock %}
